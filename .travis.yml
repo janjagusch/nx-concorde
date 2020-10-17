@@ -47,4 +47,3 @@ jobs:
     - stage: release
       script:
         - bin/check_release ${TRAVIS_TAG}
-        - poetry publish --build
