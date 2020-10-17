@@ -49,3 +49,7 @@ Instead you could install it for example like:
 tag="the tag you want to install"
 pip install -e https://github.com/janjagusch/nx-concorde.git@{$tag}
 ```
+
+## Licensing
+
+See [LICENSE](LICENSE) for details. Please note that the underlying Concorde TSP solver is only available for academic research use. For other uses, contact [William Cook](bico@uwaterloo.ca) for licensing options.
