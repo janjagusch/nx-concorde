@@ -3,7 +3,7 @@ This module contains functions to calculate TSP tours for networkx graphs.
 """
 
 from copy import copy
-from typing import Callable, Dict, Hashable, List
+from typing import Callable, Dict, Hashable, List, Tuple
 
 import networkx as nx
 from networkx.algorithms.shortest_paths.weighted import _weight_function
@@ -18,8 +18,14 @@ _DUMMY_DISTANCE = 10_000
 def _astar_path_factory(graph, heuristic=None, weight=None):
     def astar_path(node_pair):
         source, target = node_pair
-        return nx.astar_path(
-            source=source, target=target, G=graph, heuristic=heuristic, weight=weight
+        return tuple(
+            nx.astar_path(
+                source=source,
+                target=target,
+                G=graph,
+                heuristic=heuristic,
+                weight=weight,
+            )
         )
 
     return astar_path
@@ -27,7 +33,7 @@ def _astar_path_factory(graph, heuristic=None, weight=None):
 
 def calc_path_matrix(
     graph: nx.Graph, heuristic: Callable = None, weight: str = "weight", nodes: int = 1
-) -> Dict[Hashable, List[Hashable]]:
+) -> Dict[Hashable, Tuple[Hashable]]:
     """
     Calculates a shortest path matrix between all combinations of nodes in the graph.
     """
@@ -45,7 +51,7 @@ def calc_path_matrix(
 
 def _calc_distance(graph, path, weight="weight") -> float:
     weight = _weight_function(graph, weight)
-    return sum(weight(u, v, graph[u][v]) for u, v in zip(path[:-1], path[1:]))
+    return float(sum(weight(u, v, graph[u][v]) for u, v in zip(path[:-1], path[1:])))
 
 
 def calc_distance_matrix(
