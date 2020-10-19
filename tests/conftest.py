@@ -1,11 +1,19 @@
+"""
+Conftest
+"""
+
+
 from random import sample, seed
 
 import networkx as nx
 import pytest
 
 
-@pytest.fixture
-def graph():
+@pytest.fixture(name="graph")
+def graph_():
+    """
+    A test graph.
+    """
     seed(42)
     graph = nx.grid_2d_graph(10, 10)
     graph = graph.subgraph(sample(graph.nodes(), 80))

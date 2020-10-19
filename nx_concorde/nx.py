@@ -158,4 +158,4 @@ def calc_tour(
         tour = [node for node in tour if node != _DUMMY_NODE]
         tour = _reorder_tour(tour, start_node, end_node)
     tour = _extend_tour(tour, path_matrix)
-    return tour
+    return tuple(tour)
